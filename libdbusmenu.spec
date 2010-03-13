@@ -30,6 +30,8 @@ out of indicator-applet. It passes a menu structure across DBus so that
 a program can create a menu simply without worrying about how it is
 displayed on the other side of the bus.
 
+#-----------------------------------------------------------------------
+
 %package -n	%{libname}
 Summary:	Library for applications to pass a menu scructure accross DBus
 Group:		System/Libraries
@@ -41,7 +43,6 @@ the messaging indicator.
 %files -n	%{libname}
 %defattr(-,root,root)
 %{_libdir}/%{name}-glib.so.%{major}*
-
 
 #-----------------------------------------------------------------------
 
@@ -57,7 +58,6 @@ displayed on the other side of the bus.
 %files -n	%{gtklibname}
 %defattr(-,root,root)
 %{_libdir}/%{name}-gtk.so.%{major_gtk}*
-
 
 #-----------------------------------------------------------------------
 
@@ -76,7 +76,6 @@ to incorporate %{name} into applications.
 %{_libdir}/libdbusmenu-glib.*
 %{_libdir}/pkgconfig/dbusmenu-glib.pc
 
-
 #------------------------------------------------------------------------
 
 %package -n     %{gtkdevelname}
@@ -85,7 +84,6 @@ Group:		Development/C
 Requires:	%{gtklibname} = %{version}
 Requires:	%{develname} = %{version}
 Provides:	%{name}-gtk-devel = %{version}-%{release}
-
 
 %description -n %{gtkdevelname}
 This is the libraries, include files and other resources you can use
@@ -96,6 +94,8 @@ to incorporate %{name} into applications.
 %{_includedir}/libdbusmenu-0.1/libdbusmenu-gtk/
 %{_libdir}/libdbusmenu-gtk.*
 %{_libdir}/pkgconfig/dbusmenu-gtk.pc
+
+#-----------------------------------------------------------------------
 
 %package tools
 Summary:	Tools useful when building applications
@@ -116,7 +116,6 @@ This package contains tools that are useful when building applications.
 %prep
 %setup -q 
 
-
 %build
 %configure2_5x 
 %make
@@ -124,7 +123,6 @@ This package contains tools that are useful when building applications.
 %install
 %__rm -rf %{buildroot}
 %makeinstall
-
 
 %clean
 %__rm -rf %{buildroot}

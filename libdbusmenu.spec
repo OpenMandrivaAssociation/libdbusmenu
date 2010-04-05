@@ -1,5 +1,5 @@
 %define name libdbusmenu
-%define version 0.2.6
+%define version 0.2.9
 %define release %mkrel 1
 %define summary Library for applications to pass a menu scructure accross DBus
 %define major 1
@@ -23,6 +23,7 @@ BuildRequires:	libxml2-devel
 BuildRequires:	dbus-glib-devel
 BuildRequires:	gtk+2-devel
 BuildRequires:	libjson-glib-devel
+BuildRequires:	vala-tools
 
 %description
 A small little library that was created by pulling out some comon code
@@ -43,6 +44,9 @@ the messaging indicator.
 %files -n	%{libname}
 %defattr(-,root,root)
 %{_libdir}/%{name}-glib.so.%{major}*
+%{_libdir}/girepository-1.0/DbusmenuGlib-0.2.typelib
+%{_datadir}/gir-1.0/DbusmenuGlib-0.2.gir
+
 
 #-----------------------------------------------------------------------
 
@@ -58,6 +62,8 @@ displayed on the other side of the bus.
 %files -n	%{gtklibname}
 %defattr(-,root,root)
 %{_libdir}/%{name}-gtk.so.%{major_gtk}*
+%{_libdir}/girepository-1.0/DbusmenuGtk-0.2.typelib
+%{_datadir}/gir-1.0/DbusmenuGtk-0.2.gir
 
 #-----------------------------------------------------------------------
 
@@ -110,14 +116,17 @@ This package contains tools that are useful when building applications.
 %{_libdir}/dbusmenu-testapp
 %{_datadir}/%{name}/json/test-gtk-label.json
 %{_defaultdocdir}/%{name}/
+%{_datadir}/vala/vapi/DbusmenuGlib-0.2.vapi
+%{_datadir}/vala/vapi/DbusmenuGtk-0.2.vapi
+
 
 #-----------------------------------------------------------------------
 
 %prep
-%setup -q 
+%setup -q
 
 %build
-%configure2_5x 
+%configure2_5x
 %make
 
 %install

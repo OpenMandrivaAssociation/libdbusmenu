@@ -1,19 +1,23 @@
 %define name libdbusmenu
-%define version 0.2.9
+%define version 0.3.8
 %define release %mkrel 1
 %define summary Library for applications to pass a menu scructure accross DBus
 %define major 1
 %define major_gtk 1
+%define major_json 1
 %define libname %mklibname dbusmenu-glib %{major}
-%define gtklibname  %mklibname dbusmenu-gtk %{major_gtk}
+%define gtklibname %mklibname dbusmenu-gtk %{major_gtk}
+%define jsonname %mklibname dbusmenu-jsonloader %{major_json}
 %define develname %mklibname dbusmenu-glib -d
 %define gtkdevelname %mklibname dbusmenu-gtk -d
+%define jsondevelname %mklibname dbusmenu-jsonloader -d
 
 Summary:	%summary
 Name:		%name
 Version:	%version
 Release:	%release
 Source0:	http://launchpad.net/dbusmenu/0.2/%{version}/+download/%{name}-%{version}.tar.gz
+Patch0:		libdbusmenu-0.3.8-fix-build.patch
 License:	LGPLv3
 Group:		System/Libraries
 URL:		https://launchpad.net/dbusmenu
@@ -23,7 +27,9 @@ BuildRequires:	libxml2-devel
 BuildRequires:	dbus-glib-devel
 BuildRequires:	gtk+2-devel
 BuildRequires:	libjson-glib-devel
+BuildRequires:	gobject-introspection-devel
 BuildRequires:	vala-tools
+BuildRequires:	gnome-doc-utils
 
 %description
 A small little library that was created by pulling out some comon code
@@ -44,9 +50,8 @@ the messaging indicator.
 %files -n	%{libname}
 %defattr(-,root,root)
 %{_libdir}/%{name}-glib.so.%{major}*
-%{_libdir}/girepository-1.0/DbusmenuGlib-0.2.typelib
-%{_datadir}/gir-1.0/DbusmenuGlib-0.2.gir
-
+%{_libdir}/girepository-1.0/Dbusmenu-Glib-0.2.typelib
+%{_datadir}/gir-1.0/Dbusmenu-Glib-0.2.gir
 
 #-----------------------------------------------------------------------
 
@@ -67,6 +72,21 @@ displayed on the other side of the bus.
 
 #-----------------------------------------------------------------------
 
+%package -n	%{jsonname}
+Summary:	Library for applications to pass a menu scructure accross DBus
+Group:		System/Libraries
+%description -n %{jsonname}
+A small little library that was created by pulling out some comon code
+out of indicator-applet. It passes a menu structure across DBus so that
+a program can create a menu simply without worrying about how it is
+displayed on the other side of the bus.
+
+%files -n	%{jsonname}
+%defattr(-,root,root)
+%{_libdir}/%{name}-jsonloader.so.%{major_json}*
+
+#-----------------------------------------------------------------------
+
 %package -n	%{develname}
 Summary:	Library headers for %{name}
 Group:		Development/C 
@@ -79,8 +99,10 @@ to incorporate %{name} into applications.
 %files -n	%{develname}
 %defattr(-,root,root)
 %{_includedir}/libdbusmenu-0.1/libdbusmenu-glib/
-%{_libdir}/libdbusmenu-glib.*
+%{_libdir}/libdbusmenu-glib.so
+%{_libdir}/libdbusmenu-glib.la
 %{_libdir}/pkgconfig/dbusmenu-glib.pc
+%{_datadir}/gtk-doc/html/libdbusmenu-glib
 
 #------------------------------------------------------------------------
 
@@ -98,8 +120,29 @@ to incorporate %{name} into applications.
 %files -n       %{gtkdevelname}
 %defattr(-,root,root)
 %{_includedir}/libdbusmenu-0.1/libdbusmenu-gtk/
-%{_libdir}/libdbusmenu-gtk.*
+%{_libdir}/libdbusmenu-gtk.so
+%{_libdir}/libdbusmenu-gtk.la
 %{_libdir}/pkgconfig/dbusmenu-gtk.pc
+%{_datadir}/gtk-doc/html/libdbusmenu-gtk
+
+#-----------------------------------------------------------------------
+%package -n	%{jsondevelname}
+Summary:	Library headers for %{name}
+Group:		Development/C
+Requires:	%{jsonname} = %{version}
+Requires:	%{develname} = %{version}-%{release}
+Provides:	%{name}-jsonloader-devel = %{version}-%{release}
+
+%description -n %{jsondevelname}
+This is the libraries, include files and other resources you can use
+to incorporate %{name} into applications.
+
+%files -n       %{jsondevelname}
+%defattr(-,root,root)
+%{_includedir}/libdbusmenu-0.1/libdbusmenu-jsonloader/
+%{_libdir}/libdbusmenu-jsonloader.so
+%{_libdir}/libdbusmenu-jsonloader.la
+%{_libdir}/pkgconfig/dbusmenu-jsonloader.pc
 
 #-----------------------------------------------------------------------
 
@@ -116,9 +159,8 @@ This package contains tools that are useful when building applications.
 %{_libdir}/dbusmenu-testapp
 %{_datadir}/%{name}/json/test-gtk-label.json
 %{_defaultdocdir}/%{name}/
-%{_datadir}/vala/vapi/DbusmenuGlib-0.2.vapi
+%{_datadir}/vala/vapi/Dbusmenu-Glib-0.2.vapi
 %{_datadir}/vala/vapi/DbusmenuGtk-0.2.vapi
-
 
 #-----------------------------------------------------------------------
 
@@ -126,12 +168,12 @@ This package contains tools that are useful when building applications.
 %setup -q
 
 %build
-%configure2_5x
-%make
+%configure2_5x --disable-static
+make
 
 %install
 %__rm -rf %{buildroot}
-%makeinstall
+%makeinstall_std
 
 %clean
 %__rm -rf %{buildroot}

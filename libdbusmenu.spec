@@ -17,7 +17,6 @@ Name:		%name
 Version:	%version
 Release:	%release
 Source0:	http://launchpad.net/dbusmenu/0.2/%{version}/+download/%{name}-%{version}.tar.gz
-Patch0:		libdbusmenu-0.3.8-fix-build.patch
 License:	LGPLv3
 Group:		System/Libraries
 URL:		https://launchpad.net/dbusmenu

@@ -1,6 +1,6 @@
 %define name libdbusmenu
 %define version 0.3.8
-%define release %mkrel 1
+%define release %mkrel 2
 %define summary Library for applications to pass a menu scructure accross DBus
 %define major 1
 %define major_gtk 1

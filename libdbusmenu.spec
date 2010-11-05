@@ -1,6 +1,6 @@
 %define name libdbusmenu
-%define version 0.3.8
-%define release %mkrel 3
+%define version 0.3.16
+%define release %mkrel 1
 %define summary Library for applications to pass a menu scructure accross DBus
 %define major 1
 %define major_gtk 1
@@ -16,7 +16,7 @@ Summary:	%summary
 Name:		%name
 Version:	%version
 Release:	%release
-Source0:	http://launchpad.net/dbusmenu/0.2/%{version}/+download/%{name}-%{version}.tar.gz
+Source0:	http://launchpad.net/dbusmenu/0.3/%{version}/+download/%{name}-%{version}.tar.gz
 License:	LGPLv3
 Group:		System/Libraries
 URL:		https://launchpad.net/dbusmenu
@@ -49,8 +49,8 @@ the messaging indicator.
 %files -n	%{libname}
 %defattr(-,root,root)
 %{_libdir}/%{name}-glib.so.%{major}*
-%{_libdir}/girepository-1.0/Dbusmenu-Glib-0.2.typelib
-%{_datadir}/gir-1.0/Dbusmenu-Glib-0.2.gir
+#%{_libdir}/girepository-1.0/Dbusmenu-Glib-0.2.typelib
+#%{_datadir}/gir-1.0/Dbusmenu-Glib-0.2.gir
 
 #-----------------------------------------------------------------------
 
@@ -66,8 +66,8 @@ displayed on the other side of the bus.
 %files -n	%{gtklibname}
 %defattr(-,root,root)
 %{_libdir}/%{name}-gtk.so.%{major_gtk}*
-%{_libdir}/girepository-1.0/DbusmenuGtk-0.2.typelib
-%{_datadir}/gir-1.0/DbusmenuGtk-0.2.gir
+#%{_libdir}/girepository-1.0/DbusmenuGtk-0.2.typelib
+#%{_datadir}/gir-1.0/DbusmenuGtk-0.2.gir
 
 #-----------------------------------------------------------------------
 
@@ -101,7 +101,6 @@ to incorporate %{name} into applications.
 %{_libdir}/libdbusmenu-glib.so
 %{_libdir}/libdbusmenu-glib.la
 %{_libdir}/pkgconfig/dbusmenu-glib.pc
-%{_datadir}/gtk-doc/html/libdbusmenu-glib
 
 #------------------------------------------------------------------------
 
@@ -122,7 +121,6 @@ to incorporate %{name} into applications.
 %{_libdir}/libdbusmenu-gtk.so
 %{_libdir}/libdbusmenu-gtk.la
 %{_libdir}/pkgconfig/dbusmenu-gtk.pc
-%{_datadir}/gtk-doc/html/libdbusmenu-gtk
 
 #-----------------------------------------------------------------------
 %package -n	%{jsondevelname}
@@ -158,8 +156,8 @@ This package contains tools that are useful when building applications.
 %{_libdir}/dbusmenu-testapp
 %{_datadir}/%{name}/json/test-gtk-label.json
 %{_defaultdocdir}/%{name}/
-%{_datadir}/vala/vapi/Dbusmenu-Glib-0.2.vapi
-%{_datadir}/vala/vapi/DbusmenuGtk-0.2.vapi
+#%{_datadir}/vala/vapi/Dbusmenu-Glib-0.2.vapi
+#%{_datadir}/vala/vapi/DbusmenuGtk-0.2.vapi
 
 #-----------------------------------------------------------------------
 
@@ -167,8 +165,8 @@ This package contains tools that are useful when building applications.
 %setup -q
 
 %build
-%configure2_5x --disable-static
-make
+%configure2_5x --disable-static --enable-introspection=no --enable-gtk-doc-html
+%make
 
 %install
 %__rm -rf %{buildroot}

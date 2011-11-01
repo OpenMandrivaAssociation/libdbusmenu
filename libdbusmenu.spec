@@ -19,7 +19,7 @@ License:        LGPLv3
 Group:          System/Libraries
 URL:            https://launchpad.net/dbusmenu
 Source0:        http://launchpad.net/dbusmenu/0.5/%{version}/+download/%{name}-%{version}.tar.gz
-
+Patch1:         libdbusmenu-gtk3API.patch
 BuildRequires:  intltool
 BuildRequires:  libxml2-devel
 BuildRequires:  dbus-glib-devel
@@ -202,6 +202,7 @@ This package contains tools that are useful when building applications.
 
 %prep
 %setup -q
+%patch1 -p0
 
 %build
 %configure2_5x --disable-static --enable-gtk-doc-html

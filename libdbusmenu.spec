@@ -13,7 +13,7 @@
 
 Name:           libdbusmenu
 Version:        0.5.1
-Release:        1
+Release:        2
 Summary:        Library for applications to pass a menu scructure accross DBus
 License:        LGPLv3
 Group:          System/Libraries

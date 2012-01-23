@@ -194,7 +194,7 @@ This package contains tools that are useful when building applications.
 %configure2_5x \
 	--disable-static \
 	--enable-gtk-doc-html
-%make
+%make LIBS='-lgmodule-2.0'
 
 %install
 rm -rf %{buildroot}

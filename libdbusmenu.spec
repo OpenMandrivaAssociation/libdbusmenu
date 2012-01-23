@@ -13,7 +13,7 @@
 
 Name:           libdbusmenu
 Version:        0.5.1
-Release:        2
+Release:        3
 Summary:        Library for applications to pass a menu scructure accross DBus
 License:        LGPLv3
 Group:          System/Libraries
@@ -48,7 +48,6 @@ components of the desktop to pick up and visualize. Currently used by
 the messaging indicator.
 
 %files -n       %{libname}
-%defattr(-,root,root)
 %{_libdir}/%{name}-glib.so.%{major}*
 
 #-----------------------------------------------------------------------
@@ -64,7 +63,6 @@ components of the desktop to pick up and visualize. Currently used by
 the messaging indicator.
 
 %files -n	%{typelibname}
-%defattr(-,root,root)
 %{_libdir}/girepository-1.0/Dbusmenu-0.4.typelib
 
 #-----------------------------------------------------------------------
@@ -80,7 +78,6 @@ a program can create a menu simply without worrying about how it is
 displayed on the other side of the bus.
 
 %files -n       %{gtklibname}
-%defattr(-,root,root)
 %{_libdir}/%{name}-gtk3.so.%{major_gtk}*
 
 #-----------------------------------------------------------------------
@@ -96,7 +93,6 @@ components of the desktop to pick up and visualize. Currently used by
 the messaging indicator.
 
 %files -n	%{typelibgtk}
-%defattr(-,root,root)
 %{_libdir}/girepository-1.0/DbusmenuGtk3-0.4.typelib
 
 #-----------------------------------------------------------------------
@@ -112,7 +108,6 @@ a program can create a menu simply without worrying about how it is
 displayed on the other side of the bus.
 
 %files -n       %{jsonname}
-%defattr(-,root,root)
 %{_libdir}/%{name}-jsonloader.so.%{major_json}*
 
 #-----------------------------------------------------------------------
@@ -121,7 +116,7 @@ displayed on the other side of the bus.
 Summary:        Library headers for %{name}
 Group:          Development/C 
 Requires:       %{libname} = %{version}
-Requires:	%{typelibname} = %{version}
+Requires:		%{typelibname} = %{version}
 Provides:       %{name}-devel = %{version}-%{release}
 
 %description -n %{develname}
@@ -129,10 +124,8 @@ This is the libraries, include files and other resources you can use
 to incorporate %{name} into applications.
 
 %files -n       %{develname}
-%defattr(-,root,root)
 %{_includedir}/libdbusmenu-0.4/libdbusmenu-glib
 %{_libdir}/libdbusmenu-glib.so
-%{_libdir}/libdbusmenu-glib.la
 %{_libdir}/pkgconfig/dbusmenu-glib-0.4.pc
 %{_datadir}/gir-1.0/Dbusmenu-0.4.gir
 %{_datadir}/vala/vapi/Dbusmenu-0.4.vapi
@@ -144,8 +137,7 @@ to incorporate %{name} into applications.
 Summary:        Library headers for %{name}
 Group:          Development/C
 Requires:       %{gtklibname} = %{version}
-Requires:	%{typelibgtk} = %{version}
-Requires:       %{develname} = %{version}
+Requires:		%{typelibgtk} = %{version}
 Provides:       %{name}-gtk-devel = %{version}-%{release}
 
 %description -n %{gtkdevelname}
@@ -153,10 +145,8 @@ This is the libraries, include files and other resources you can use
 to incorporate %{name} into applications.
 
 %files -n       %{gtkdevelname}
-%defattr(-,root,root)
 %{_includedir}/libdbusmenu-0.4/libdbusmenu-gtk3
 %{_libdir}/libdbusmenu-gtk3.so
-%{_libdir}/libdbusmenu-gtk3.la
 %{_libdir}/pkgconfig/dbusmenu-gtk3-0.4.pc
 %{_datadir}/gir-1.0/DbusmenuGtk3-0.4.gir
 %{_datadir}/vala/vapi/DbusmenuGtk3-0.4.vapi
@@ -168,7 +158,6 @@ to incorporate %{name} into applications.
 Summary:        Library headers for %{name}
 Group:          Development/C
 Requires:       %{jsonname} = %{version}
-Requires:       %{develname} = %{version}-%{release}
 Provides:       %{name}-jsonloader-devel = %{version}-%{release}
 
 %description -n %{jsondevelname}
@@ -176,10 +165,8 @@ This is the libraries, include files and other resources you can use
 to incorporate %{name} into applications.
 
 %files -n       %{jsondevelname}
-%defattr(-,root,root)
 %{_includedir}/libdbusmenu-0.4/libdbusmenu-jsonloader
 %{_libdir}/libdbusmenu-jsonloader.so
-%{_libdir}/libdbusmenu-jsonloader.la
 %{_libdir}/pkgconfig/dbusmenu-jsonloader-0.4.pc
 
 #-----------------------------------------------------------------------
@@ -191,7 +178,6 @@ Group:          Development/C
 This package contains tools that are useful when building applications. 
 
 %files -n %{toolsname}
-%defattr(-,root,root)
 %{_libdir}/dbusmenu-bench
 %{_libdir}/dbusmenu-dumper
 %{_libdir}/dbusmenu-testapp
@@ -205,14 +191,12 @@ This package contains tools that are useful when building applications.
 %patch1 -p0
 
 %build
-%configure2_5x --disable-static --enable-gtk-doc-html
+%configure2_5x \
+	--disable-static \
+	--enable-gtk-doc-html
 %make
 
 %install
-%__rm -rf %{buildroot}
+rm -rf %{buildroot}
 %makeinstall_std
-
-%clean
-%__rm -rf %{buildroot}
-
 

@@ -191,7 +191,8 @@ This package contains tools that are useful when building applications.
 %patch1 -p0
 
 %build
-%configure2_5x \
+autoreconf -fi
+%configure \
 	--disable-static \
 	--enable-gtk-doc-html
 %make LIBS='-lgmodule-2.0'

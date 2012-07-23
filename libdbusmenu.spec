@@ -29,7 +29,7 @@ BuildRequires:  pkgconfig(json-glib-1.0) >= 0.13.4
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  vala-tools
 BuildRequires:	pkgconfig(valgrind)
-BuildRequires:  gnome-doc-utils
+BuildRequires:  pkgconfig(gnome-doc-utils)
 
 %description
 A small little library that was created by pulling out some comon code

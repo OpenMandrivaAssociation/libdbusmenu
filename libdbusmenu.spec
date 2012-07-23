@@ -1,33 +1,34 @@
-%define major 4
-%define major_gtk 4
-%define major_json 4
-%define libname %mklibname dbusmenu-glib %{major}
-%define typelibname %mklibname dbusmenu-gir 0.4
-%define gtklibname %mklibname dbusmenu-gtk3_ %{major_gtk}
-%define typelibgtk %mklibname dbusmenu-gtk3-gir 0.4
-%define jsonname %mklibname dbusmenu-jsonloader %{major_json}
-%define develname %mklibname dbusmenu-glib -d
-%define gtkdevelname %mklibname dbusmenu-gtk -d
-%define jsondevelname %mklibname dbusmenu-jsonloader -d
-%define toolsname %{name}-tools
+%define         major         4
+%define         major_gtk     4
+%define         major_json    4
+%define         libname       %mklibname dbusmenu-glib %{major}
+%define         typelibname   %mklibname dbusmenu-gir 0.4
+%define         gtklibname    %mklibname dbusmenu-gtk3_ %{major_gtk}
+%define         typelibgtk    %mklibname dbusmenu-gtk3-gir 0.4
+%define         jsonname      %mklibname dbusmenu-jsonloader %{major_json}
+%define         develname     %mklibname dbusmenu-glib -d
+%define         gtkdevelname  %mklibname dbusmenu-gtk -d
+%define         jsondevelname %mklibname dbusmenu-jsonloader -d
+%define         toolsname     %{name}-tools
 
 Name:           libdbusmenu
-Version:        0.5.1
-Release:        3
+Version:        0.6.2
+Release:        1
 Summary:        Library for applications to pass a menu scructure accross DBus
 License:        LGPLv3
 Group:          System/Libraries
 URL:            https://launchpad.net/dbusmenu
-Source0:        http://launchpad.net/dbusmenu/0.5/%{version}/+download/%{name}-%{version}.tar.gz
-Patch1:         libdbusmenu-gtk3API.patch
+Source0:        http://launchpad.net/dbusmenu/0.6/%{version}/+download/%{name}-%{version}.tar.gz
+
 BuildRequires:  intltool
 BuildRequires:  libxml2-devel
 BuildRequires:  dbus-glib-devel
 BuildRequires:	gtk+2-devel
 BuildRequires:  gtk+3-devel
-BuildRequires:  libjson-glib-devel >= 0.13.4
+BuildRequires:  pkgconfig(json-glib-1.0) >= 0.13.4
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  vala-tools
+BuildRequires:	pkgconfig(valgrind)
 BuildRequires:  gnome-doc-utils
 
 %description
@@ -53,7 +54,7 @@ the messaging indicator.
 #-----------------------------------------------------------------------
 
 %package -n	%{typelibname}
-Summary:	Library for applications to pass a menu structure accross DBus
+Summary:	GObject introspection interface description for DBus
 Group:		System/Libraries
 Requires:	%{libname} = %{version}
 
@@ -83,7 +84,7 @@ displayed on the other side of the bus.
 #-----------------------------------------------------------------------
 
 %package -n	%{typelibgtk}
-Summary:	Library for applications to pass a menu structure accross DBus
+Summary:	GObject introspection interface description for DBusGtk
 Group:		System/Libraries
 Requires:	%{gtklibname} = %{version}
 
@@ -116,7 +117,7 @@ displayed on the other side of the bus.
 Summary:        Library headers for %{name}
 Group:          Development/C 
 Requires:       %{libname} = %{version}
-Requires:		%{typelibname} = %{version}
+Requires:	%{typelibname} = %{version}
 Provides:       %{name}-devel = %{version}-%{release}
 
 %description -n %{develname}
@@ -124,7 +125,8 @@ This is the libraries, include files and other resources you can use
 to incorporate %{name} into applications.
 
 %files -n       %{develname}
-%{_includedir}/libdbusmenu-0.4/libdbusmenu-glib
+%dir %{_includedir}/libdbusmenu-glib-0.4
+%{_includedir}/libdbusmenu-glib-0.4/libdbusmenu-glib
 %{_libdir}/libdbusmenu-glib.so
 %{_libdir}/pkgconfig/dbusmenu-glib-0.4.pc
 %{_datadir}/gir-1.0/Dbusmenu-0.4.gir
@@ -137,7 +139,8 @@ to incorporate %{name} into applications.
 Summary:        Library headers for %{name}
 Group:          Development/C
 Requires:       %{gtklibname} = %{version}
-Requires:		%{typelibgtk} = %{version}
+Requires:	%{typelibgtk} = %{version}
+Requires:       %{develname} = %{version}
 Provides:       %{name}-gtk-devel = %{version}-%{release}
 
 %description -n %{gtkdevelname}
@@ -145,7 +148,7 @@ This is the libraries, include files and other resources you can use
 to incorporate %{name} into applications.
 
 %files -n       %{gtkdevelname}
-%{_includedir}/libdbusmenu-0.4/libdbusmenu-gtk3
+%{_includedir}/libdbusmenu-gtk3-0.4/libdbusmenu-gtk
 %{_libdir}/libdbusmenu-gtk3.so
 %{_libdir}/pkgconfig/dbusmenu-gtk3-0.4.pc
 %{_datadir}/gir-1.0/DbusmenuGtk3-0.4.gir
@@ -158,6 +161,7 @@ to incorporate %{name} into applications.
 Summary:        Library headers for %{name}
 Group:          Development/C
 Requires:       %{jsonname} = %{version}
+Requires:       %{develname} = %{version}-%{release}
 Provides:       %{name}-jsonloader-devel = %{version}-%{release}
 
 %description -n %{jsondevelname}
@@ -165,7 +169,7 @@ This is the libraries, include files and other resources you can use
 to incorporate %{name} into applications.
 
 %files -n       %{jsondevelname}
-%{_includedir}/libdbusmenu-0.4/libdbusmenu-jsonloader
+%{_includedir}/libdbusmenu-glib-0.4/libdbusmenu-jsonloader
 %{_libdir}/libdbusmenu-jsonloader.so
 %{_libdir}/pkgconfig/dbusmenu-jsonloader-0.4.pc
 
@@ -178,9 +182,9 @@ Group:          Development/C
 This package contains tools that are useful when building applications. 
 
 %files -n %{toolsname}
-%{_libdir}/dbusmenu-bench
-%{_libdir}/dbusmenu-dumper
-%{_libdir}/dbusmenu-testapp
+%{_libexecdir}/dbusmenu-bench
+%{_libexecdir}/dbusmenu-dumper
+%{_libexecdir}/dbusmenu-testapp
 %{_datadir}/%{name}/json/test-gtk-label.json
 %{_defaultdocdir}/%{name}/
 
@@ -188,16 +192,12 @@ This package contains tools that are useful when building applications.
 
 %prep
 %setup -q
-%patch1 -p0
 
 %build
-autoreconf -fi
-%configure \
-	--disable-static \
-	--enable-gtk-doc-html
-%make LIBS='-lgmodule-2.0'
+%configure2_5x --disable-static --enable-gtk-doc-html
+%make
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 
+rm -f %{buildroot}%{_libdir}/*.la

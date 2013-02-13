@@ -195,6 +195,7 @@ This package contains tools that are useful when building applications.
 %setup -q
 
 %build
+CFLAGS="%{optflags} -Wno-error=deprecated-declarations"
 %configure2_5x --disable-static --enable-gtk-doc-html
 %make
 

@@ -32,6 +32,7 @@ BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(json-glib-1.0) >= 0.13.4
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(valgrind)
+BuildRequires: gcc-c++, gcc, gcc-cpp
 
 %description
 A small little library that was created by pulling out some comon code
@@ -175,6 +176,9 @@ This package contains tools that are useful when building applications.
 %setup -q
 
 %build
+export CC=gcc
+export CXX=g++
+
 CFLAGS="%{optflags} -Wno-error=deprecated-declarations"
 %configure2_5x \
 	--disable-static \

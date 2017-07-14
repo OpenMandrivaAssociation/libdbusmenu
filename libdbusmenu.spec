@@ -19,7 +19,7 @@
 Summary:	Library for applications to pass a menu scructure accross DBus
 Name:		libdbusmenu
 Version:	16.04.0
-Release:	2
+Release:	3
 License:	LGPLv3
 Group:		System/Libraries
 Url:		https://launchpad.net/dbusmenu

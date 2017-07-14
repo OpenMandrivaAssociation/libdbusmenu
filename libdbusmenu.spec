@@ -2,24 +2,24 @@
 %define	major	4
 %define	libname	%mklibname dbusmenu-glib %{major}
 %define	girname	%mklibname dbusmenu-gir %{api}
-%define	devname     %mklibname dbusmenu-glib -d
+%define	devname	%mklibname dbusmenu-glib -d
 
 %define	libgtk3	%mklibname dbusmenu-gtk3_ %{major}
 %define	libgtk2	%mklibname dbusmenu-gtk2_ %{major}
 %define	girgtk3	%mklibname dbusmenu-gtk3-gir %{api}
 %define	girgtk2	%mklibname dbusmenu-gtk2-gir %{api}
-%define	devgtk3  %mklibname dbusmenu-gtk -d
-%define	devgtk2  %mklibname dbusmenu-gtk -d
+%define	devgtk3	%mklibname dbusmenu-gtk3 -d
+%define	devgtk2	%mklibname dbusmenu-gtk2 -d
 
-%define	libjson      %mklibname dbusmenu-jsonloader %{major}
-%define	devjson %mklibname dbusmenu-jsonloader -d
+%define	libjson	%mklibname dbusmenu-jsonloader %{major}
+%define	devjson	%mklibname dbusmenu-jsonloader -d
 
-%define	toolsname     %{name}-tools
+%define	toolsname	%{name}-tools
 
 Summary:	Library for applications to pass a menu scructure accross DBus
 Name:		libdbusmenu
 Version:	16.04.0
-Release:	1
+Release:	2
 License:	LGPLv3
 Group:		System/Libraries
 Url:		https://launchpad.net/dbusmenu

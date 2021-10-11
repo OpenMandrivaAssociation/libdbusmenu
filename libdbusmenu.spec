@@ -19,7 +19,7 @@
 Summary:	Library for applications to pass a menu scructure accross DBus
 Name:		libdbusmenu
 Version:	16.04.0
-Release:	4
+Release:	5
 License:	LGPLv3
 Group:		System/Libraries
 Url:		https://launchpad.net/dbusmenu
@@ -27,6 +27,7 @@ Source0:	http://launchpad.net/dbusmenu/0.6/%{version}/+download/%{name}-%{versio
 
 BuildRequires:	intltool
 BuildRequires:	vala-tools
+BuildRequires:  gtk-doc
 BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	pkgconfig(gnome-doc-utils)
 BuildRequires:	pkgconfig(gobject-introspection-1.0)

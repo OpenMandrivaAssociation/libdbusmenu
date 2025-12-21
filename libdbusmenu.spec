@@ -25,6 +25,11 @@ Group:		System/Libraries
 Url:		https://launchpad.net/dbusmenu
 Source0:	http://launchpad.net/dbusmenu/0.6/%{version}/+download/%{name}-%{version}.tar.gz
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	intltool
 BuildRequires:	vala-tools
 BuildRequires:  gtk-doc
